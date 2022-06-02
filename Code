@@ -1,0 +1,71 @@
+1.
+select nama_member, email_member from member
+where year(tanggal_lahir) = 2000 order by nama_member asc;
+
+2.
+select nama_member from member
+where jenis_kelamin = 1 AND month(tanggal_lahir)= 06
+order by length(nama_member) asc;
+
+3.
+select SUBSTRING(id_member, length(id_member)-2, 3) as id, nama_member from member;
+
+4. 
+select concat(nama_member, ' berjenis kelamin ', IF(jenis_kelamin=0, 'laki-laki', 'perempuan')) from member;
+
+5.
+select count(jenis_kelamin) from member 
+where jenis_kelamin = 0;
+
+6. 
+select if(jenis_kelamin=0,'laki-laki', 'perempuan'), count(jenis_kelamin)
+from member group by jenis_kelamin;
+
+7.
+select nama_member, month(tanggal_lahir) from member;
+
+8.
+select month(tanggal_lahir), count(month(tanggal_lahir)) from member
+group by month(tanggal_lahir);
+
+9.
+select nama_member,
+timestampdiff(year, tanggal_lahir, curdate()) as umur
+from member
+order by umur asc;
+
+10.
+select timestampdiff(year, tanggal_lahir, curdate()) as umur, count(timestampdiff(year, tanggal_lahir, curdate())) from member
+group by umur;
+
+11.
+select nama_member, substring(nama_member, 1,1) from member;
+
+12. 
+select substring(nama_member, 1,1) as hurufdepan, count(substring(nama_member, 1,1)) from member
+group by hurufdepan;
+
+13. 
+select nama_member, length(email_member) from member;
+
+14. 
+select nama_member from member 
+where length(email_member) = (select(max(length(EMAIL_MEMBER))) from member);
+
+15.
+select nama_member from member 
+where nama_member like 'A%' AND length(email_member) = (select(max(length(EMAIL_MEMBER))) from member);
+
+16.
+select nama_member, position(' ' in nama_member) as posisispace
+from member;
+
+17.
+select ifnull(substr(nama_member,1,instr(nama_member,' ')), 
+              substr(nama_member, instr(nama_member,' ')+1)) katapertama,
+              substr(nama_member, instr(nama_member,' ')+1) kata_kedua
+from member;
+
+18.
+select concat(month(tanggal_lahir),'-',year(tanggal_lahir)), nama_member, email_member
+from member order by month(tanggal_lahir) asc, year(tanggal_lahir) asc;
